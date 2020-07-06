@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "redissertation"
+version = "0.1.0"
+description = ""
+authors = ["YOUR_NAME <YOUR_EMAIL>"]
+
+[tool.poetry.dependencies]
+python = "~3.7"
+pandas = "^1.0.5"
+numpy = "~1.19.0"
+xarray = "~0.15"
+dask = {version = "^2.19.0", extras = ['complete']}
+netcdf4 = '~1.5'
+scikit-learn = "~0.23"
+tensorflow = '~2.2'
+requests = "~2.24"
+click = "^7.1.2"
+graphviz = "^0.14"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.4.3"
+jupyter = "^1.0.0"
+ipython = '~7.15'
+jupyterlab = '~2.1'
+seaborn = '~0.10'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
