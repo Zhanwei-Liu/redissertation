@@ -16,6 +16,10 @@ tensorflow = '~2.2'
 requests = "~2.24"
 click = "^7.1.2"
 graphviz = "^0.14"
+cfgrib = "^0.9.8"
+hvplot = "^0.6.0"
+s3fs = "^0.4.2"
+google-cloud-storage = "^1.29.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.3"
