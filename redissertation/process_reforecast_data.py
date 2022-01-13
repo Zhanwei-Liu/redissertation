@@ -164,17 +164,21 @@ def download_and_process_grib(
                 ]
                 selection_dict["isobaricInhPa"] = pressure_level
             ds = ds.sel(selection_dict)
+            # print(selection_dict)
+            # print(ds.tp.time)
             # NOTE: The longitude is originally between 0-360, but
             # for our purpose, we'll convert it to be between -180-180.
             ds["longitude"] = (
                 ("longitude",),
                 np.mod(ds["longitude"].values + 180.0, 360.0) - 180.0,
             )
-            ds = ds.assign(time=ds.time + ds["step"].max())
+            # resample according to one day
             if "pcp" in base_file_name:
-                ds = ds.sum("step")
+                # ds = ds.sum("step")
+                ds = ds.resample(step='1D').sum()
             else:
-                ds = ds.mean("step")
+                # ds = ds.mean("step")
+                ds = ds.resample(step='1D').mean()
             # now, we need to reshape the data
             ds = ds.expand_dims("time", axis=0).expand_dims("number", axis=1)
             # set data vars to float32
@@ -280,7 +284,7 @@ def get_and_process_reforecast_data(
         raise ValueError(
             f"Forecast hour bounds must be between 0-16 days, got: {forecast_days_bounds}"
         )
-    if max(forecast_days_bounds) < 10:
+    if max(forecast_days_bounds) <= 10:
         days = DAYS_PREFIX["1-10"]
     else:
         days = DAYS_PREFIX["10-16"]
